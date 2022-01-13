@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_180546) do
+ActiveRecord::Schema.define(version: 2022_01_13_224736) do
 
   create_table "pets", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2022_01_13_180546) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.integer "kind", default: 0
+    t.index ["kind"], name: "index_posts_on_kind"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
