@@ -45,6 +45,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    # For CREATE/PUT/PATCH requests, params in the request body are made available in params[:resource]
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:first_name, :last_name)
