@@ -4,4 +4,8 @@ class GreetingsController < ApplicationController
     data = { num: 5, str: 'hello', pet: Pet.first }
     render json: data
   end
+
+  def world
+    render json: { success: true }
+  end
 end
