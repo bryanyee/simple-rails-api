@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_025933) do
+ActiveRecord::Schema.define(version: 2022_01_13_173410) do
 
   create_table "pets", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 2022_01_13_025933) do
     t.string "last_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
+    t.string "quote"
+    t.index ["quote"], name: "index_users_on_quote"
+    t.index ["username"], name: "index_users_on_username"
   end
 
 end
