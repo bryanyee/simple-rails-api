@@ -1,7 +1,14 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
-  # GET /users/:user_id/posts
+  # Resource collections concepts:
+  # - Nested resources
+  # - Filtering, pagination, sorting
+  # - Relation chaining
+  # - Eager loading to prevent n+1 SQL queries
+  # - SQL injection prevention
+
+  # GET /users/:user_id/posts?kind=<kind>&limit=<limit>&offset=<offset>&order=<order>
   def index
     # Prevent SQL injection https://www.netsparker.com/blog/web-security/sql-injection-ruby-on-rails-development/
     # Use:
@@ -9,7 +16,32 @@ class PostsController < ApplicationController
     # - Dynamic finder methods: Post.find_by_user_id
     # Dont' use:
     # - Arbitrary string queries: User.where("name = '#{params[:name]'")
-    @posts = Post.where(user_id: params[:user_id])
+    @posts = Post.where(user_id: index_params[:user_id])
+
+    # ActiveRecord Relations are lazy evaluated and can be chained w/o firing extra SQL queries
+    # https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-on-rails/lessons/active-record-queries
+
+    # FILTER
+    # TODO: validate @kind param
+    if index_params[:kind].present?
+      @posts = @posts.where(kind: index_params[:kind])
+    end
+
+    # PAGINATE
+    if index_params[:offset].present?
+      @posts = @posts.offset(index_params[:offset])
+    end
+
+    if index_params[:limit].present?
+      @posts = @posts.limit(index_params[:limit])
+    end
+
+    # SORT
+    if index_params[:order].present?
+      # asc OR desc
+      # TODO: validate @order param
+      @posts = @posts.order(created_at: index_params[:order])
+    end
 
     render json: @posts
   end
@@ -54,5 +86,9 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:text, :user_id)
+    end
+
+    def index_params
+      params.permit(:user_id, :kind, :offset, :limit, :order)
     end
 end
