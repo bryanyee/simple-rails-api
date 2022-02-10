@@ -1,10 +1,15 @@
+# TODO:
+# - Validate filter and order params and return an error response for invalid values
+# - Prevent n+1 queries w/ eager loading
+# - Controller specs
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
   # Resource collections concepts:
   # - Nested resources
   # - Filtering, pagination, sorting
-  # - Relation chaining
+  # - Relation chaining and lazy evaluation of sql queries
   # - Eager loading to prevent n+1 SQL queries
   # - SQL injection prevention
 
