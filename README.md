@@ -1,24 +1,36 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development Setup
 
-Things you may want to cover:
+- **Install Ruby**
 
-* Ruby version
+First, ensure that `ruby-install` and `chruby` are installed. Then run:
+```
+ruby-install ruby 2.7.2
+```
 
-* System dependencies
+Then, `source` the `.bashrc` or `.zshrc` file, OR open a new terminal and check the version version:
+```
+chruby
+```
 
-* Configuration
+- **Install Postgres**
 
-* Database creation
+```
+brew install postgresql
+brew services start postgresql
+```
 
-* Database initialization
+- **Create and seed the database**
 
-* How to run the test suite
+```
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Run the development server
 
-* Deployment instructions
-
-* ...
+```
+rails server
+```
