@@ -6,13 +6,13 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get user_posts_url(user_id: @post.user_id), as: :json
+    get user_posts_path(user_id: @post.user_id), as: :json
     assert_response :success
   end
 
   test "should create post" do
     assert_difference('Post.count') do
-      post user_posts_url(user_id: @post.user_id), params: { post: { text: @post.text, user_id: @post.user_id } }, as: :json
+      post user_posts_path(user_id: @post.user_id), params: { post: { text: @post.text, user_id: @post.user_id } }, as: :json
     end
 
     assert_response 201
