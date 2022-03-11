@@ -88,9 +88,11 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # https://guides.rubyonrails.org/action_controller_overview.html#json-parameters
+    # https://api.rubyonrails.org/v7.0.2.3/classes/ActionController/ParamsWrapper.html
+    # For Content-Type="application/json" requests, params in the request body are made available in params[:resource]
     def post_params
-      params.require(:post).permit(:text, :user_id)
+      params.require(:post).permit(:text)
     end
 
     def index_params

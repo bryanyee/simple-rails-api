@@ -45,8 +45,9 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    # For CREATE/PUT/PATCH requests, params in the request body are made available in params[:resource]
-    # Only allow a list of trusted parameters through.
+    # https://guides.rubyonrails.org/action_controller_overview.html#json-parameters
+    # https://api.rubyonrails.org/v7.0.2.3/classes/ActionController/ParamsWrapper.html
+    # For Content-Type="application/json" requests, params in the request body are made available in params[:resource]
     def user_params
       params.require(:user).permit(:first_name, :last_name)
     end
