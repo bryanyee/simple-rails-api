@@ -30,5 +30,8 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# rails-rspec
+spec/examples.txt
+
 # Additional
 .env
