@@ -1,9 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  firstName: MyString
-  lastName: MyString
+  id: 1
+  first_name: one-first-name
+  last_name: one-last-name
 
 two:
-  firstName: MyString
-  lastName: MyString
+  id: 2
+  first_name: two-first-name
+  last_name: two-last-name
