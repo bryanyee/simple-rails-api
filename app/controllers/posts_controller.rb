@@ -1,7 +1,6 @@
 # TODO:
 # - Validate filter and order params and return an error response for invalid values
 # - Prevent n+1 queries w/ eager loading
-# - Controller specs
 
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
