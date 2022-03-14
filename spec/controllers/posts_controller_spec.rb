@@ -38,7 +38,8 @@ RSpec.describe PostsController, type: :controller do
       expect(response.status).to eq(200)
     end
 
-    it "raises when the resource doesn't exist" do
+    # The Rails stack returns a 404 response when a controller action raises RecordNotFound
+    it "raises RecordNotFound when the resource doesn't exist" do
       expect {
         get :show, params: { id: "invalid" }
       }.to raise_error(ActiveRecord::RecordNotFound)

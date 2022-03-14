@@ -1,9 +1,11 @@
 require "rails_helper"
 
-# Controller vs Request vs Feature specs
-# Test for 404 response
-# - Must use rspec Feature specs to integrate Rails' exception handling for ActiveRecord::RecordNotFound
-# Filter, paginate, sort specs
+# 404 behavior - when a resource doesn't exist:
+# - #find and #find_by_id! will raise ActiveRecord::RecordNotFound,
+#   and the Rails stack automatically returns a 404 response
+# - rspec controller and request specs don't include the RecordNotFound/404 handler,
+#   so test against RecordNotFound directly, configure a workaround, or use feature integration tests
+# - https://stackoverflow.com/questions/24786258/rspec-rails-controller-testing-404-not-working
 
 RSpec.describe "API calls on the posts resource", type: :request do
   let(:user) { User.create(first_name: "Bob", last_name: "Smith") }
@@ -46,7 +48,8 @@ RSpec.describe "API calls on the posts resource", type: :request do
       expect(response.status).to eq(200)
     end
 
-    it "raises when the resource doesn't exist" do
+    # The Rails stack returns a 404 response when a controller action raises RecordNotFound
+    it "raises RecordNotFound when the resource doesn't exist" do
       expect {
         get post_path('invalid')
       }.to raise_error(ActiveRecord::RecordNotFound)
